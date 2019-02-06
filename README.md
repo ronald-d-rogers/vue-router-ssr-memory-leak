@@ -2,6 +2,18 @@
 
 An illustration of a memory leak that occurs with Vue Router's `beforeRouteEnter` guard implementation.
 
+To install siege:
+```
+brew install siege
+```
+
+To run:
+```
+npm run build
+node --inspect server
+siege http://localhost:8080/
+```
+
 The memory leak happens when the `router-view` is programmed to appear conditionally, and the component matching the view has a `beforeRouteEnter` guard **and** a callback is passed to it's `next(...)` method (e.g. `next(vm => {})`).
 
 This will cause `vue-router` to poll every 16ms until the `router-view` materializes.
