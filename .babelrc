@@ -3,7 +3,6 @@
     "app": {
       "presets": ["env", "stage-2"],
       "plugins": [
-        "graphql-tag",
         "transform-object-rest-spread",
         "transform-es2015-parameters",
         "transform-es2015-spread",
