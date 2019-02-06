@@ -6,7 +6,7 @@ export function createRouter() {
     mode: 'history',
     routes: [
       {
-        path: '/:view',
+        path: '/',
         component: View
       }
     ]
