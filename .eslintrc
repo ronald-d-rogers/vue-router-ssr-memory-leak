@@ -1,0 +1,25 @@
+{
+  "extends": ["standard", "plugin:vue/recommended", "prettier", "prettier/standard"],
+  "plugins": ["prettier", "standard"],
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 2018,
+    "allowImportExportEverywhere": true,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "globals": {
+    "require": true,
+    "global": true,
+    "process": true,
+    "module": true
+  },
+  "rules": {
+    "vue/no-v-html": false,
+    "vue/singleline-html-element-content-newline": false,
+    "vue/multiline-html-element-content-newline": false,
+    "vue/max-attributes-per-line": false,
+    "vue/html-closing-bracket-spacing": false
+  }
+}
