@@ -1,8 +1,8 @@
 # vue-router-ssr-memory-leak
 
-An illustration of a memory leak that occurs with Vue Router's before enter guard implementation.
+An illustration of a memory leak that occurs with Vue Router's `beforeRouteEnter` guard implementation.
 
-The memory leak happens when the `router-view` appears conditionally, and the component matching the view has a `beforeRouteEnter` guard **and** a callback is passed to it's `next(...)` method (e.g. `next(vm => {})`).
+The memory leak happens when the `router-view` is programmed to appear conditionally, and the component matching the view has a `beforeRouteEnter` guard **and** a callback is passed to it's `next(...)` method (e.g. `next(vm => {})`).
 
 This will cause `vue-router` to poll every 16ms until the `router-view` materializes.
 
