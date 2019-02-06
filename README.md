@@ -20,4 +20,8 @@ This will cause `vue-router` to poll every 16ms until the `router-view` material
 
 In a typical SSR application an instance of the app is created per request, which means the `router-view` will never appear, causing infinitely recursing `poll` methods.
 
+This can be verified by checking the heap snapshot.
+As the application is sieged, Timeout's will grow indefinitely, and profiling the CPU reveals that poll's are executing constantly in the event loop.
+
+
 Note that this is probably not a problem for non-SSR applications.
