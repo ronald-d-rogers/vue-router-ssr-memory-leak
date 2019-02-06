@@ -1,4 +1,4 @@
-# vue-router-memory-leak
+# vue-router-ssr-memory-leak
 
 An illustration of a memory leak that occurs with Vue Router's before enter guard implementation.
 
