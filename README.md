@@ -8,9 +8,9 @@ brew install siege
 ```
 
 To run:
-```
+```bash
 npm run build
-node --inspect server
+npm run start
 siege http://localhost:8080/
 ```
 
