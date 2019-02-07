@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "An illustraton of a memory leak being caused by vue-router's before route enter guard implementation",
   "scripts": {
-    "start": "node --inspect server",
+    "start": "NODE_ENV=production node --inspect server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
-    "build:client": "NODE_ENV=production BABEL_ENV=app webpack --config build/webpack.client.config.js --hide-modules",
-    "build:server": "NODE_ENV=production BABEL_ENV=app webpack --config build/webpack.server.config.js --hide-modules"
+    "build:client": "NODE_ENV=production webpack --config build/webpack.client.config.js --hide-modules",
+    "build:server": "NODE_ENV=production webpack --config build/webpack.server.config.js --hide-modules"
   },
   "engines": {
     "node": ">=8.15.0",
