@@ -46,7 +46,7 @@ Note that this is probably not a problem for non-SSR applications.
 
 ## Testing the Fix
 
-### Vue Router
+### Build Vue Router
 
 #### Clone `ronald-d-rogers/vue-router`
 ```
@@ -59,7 +59,7 @@ cd vue-router
 yarn && yarn build && yarn link
 ```
 
-### Vue Server Renderer
+### Build Vue Server Renderer
 
 #### Clone `ronald-d-rogers/vue`
 ```
@@ -129,14 +129,14 @@ export default context => {
 
 The change to `vue-server-render` allows us to call `app.$destroy` when the request is complete:
 
-```
+```es6
 resolve({ app, onComplete() { app.$destroy() } })
 ```
 
-This sets `app._isBeingDestroyed` to `true`
+This sets `app._isBeingDestroyed` to `true`.
 
-`vue-router`'s `poll` method, which is what is leaking into memory, is written as follows:
-```flow js
+`vue-router`'s `poll` method is leaking into memory every request:
+```es6
 function poll (
   cb: any, // somehow flow cannot infer this is a function
   instances: Object,
@@ -155,8 +155,10 @@ function poll (
   }
 }
 ```
+It uses `isValid` to stop itself from recursing:
+https://github.com/vuejs/vue-router/blob/fc42d9cf8e1d381b885c9af37003198dce6f1161/src/history/base.js#L348
 
-And the change to `vue-router`'s `isValid` method appears as follows:
+So we update the `isValid` method to check if the app is being destroyed.
 
 ```diff
 - const isValid = () => this.current === route
@@ -168,4 +170,4 @@ And the change to `vue-router`'s `isValid` method appears as follows:
 + }
 ```
 
-Setting `app._isBeingDestroyed` to `true` by calling `app.$destroy`, and checking if the app is being destroyed in `isValid` short-circuits `poll`, which is what is leaking into memory every request.
+Setting `app._isBeingDestroyed` to `true` by calling `app.$destroy`, and checking if the app is being destroyed in `isValid` short-circuits the leaking `poll`s.
