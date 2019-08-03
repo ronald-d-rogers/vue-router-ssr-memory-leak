@@ -4,6 +4,7 @@ const vueConfig = require('./vue-loader.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -57,6 +58,7 @@ module.exports = {
   },
   plugins: isProd
     ? [
+        new VueLoaderPlugin(),
         new UglifyJsPlugin({
           uglifyOptions:
           {
@@ -70,5 +72,8 @@ module.exports = {
           filename: 'common.[chunkhash].css'
         })
       ]
-    : [new FriendlyErrorsPlugin()]
+    : [
+        new VueLoaderPlugin(),
+        new FriendlyErrorsPlugin()
+      ]
 }
